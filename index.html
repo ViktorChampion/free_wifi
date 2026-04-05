@@ -5,30 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Rostic's Free Wi-Fi</title>
     <style>
-        /* Убираем все отступы и фиксируем экран */
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden; /* Чтобы нельзя было скроллить */
-            background-color: #000; /* Черный фон для эффекта */
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; font-family: sans-serif; background-color: white; }
+        
+        /* Экран загрузки (маскировка) */
+        #loading-screen {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            height: 100%; width: 100%; position: absolute; z-index: 10; background: white;
         }
-
-        img {
-            /* Растягиваем картинку, сохраняя пропорции */
-            width: 100vw;
-            height: 100vh;
-            object-fit: cover; /* Заполнит весь экран, лишнее обрежет */
-            /* Если хочешь, чтобы картинка была видна целиком без обрезки, 
-               замени 'cover' на 'contain' */
+        .btn {
+            padding: 20px 40px; background: #e4002b; color: white; border: none;
+            border-radius: 50px; font-weight: bold; font-size: 1.2rem; cursor: pointer;
+        }
+        
+        /* Сама обезьяна (сначала скрыта) */
+        #monkey-img {
+            display: none; width: 100vw; height: 100vh; object-fit: cover;
         }
     </style>
 </head>
 <body>
-    <img src="obeziyanka.jpg" alt="Wi-Fi">
+
+    <!-- Фальшивая кнопка подключения -->
+    <div id="loading-screen">
+        <img src="https://rostics.ru" style="width: 150px; margin-bottom: 20px;" alt="Logo">
+        <button class="btn" onclick="startPrank()">ПОДКЛЮЧИТЬСЯ К WI-FI</button>
+        <p style="color: #666; margin-top: 15px;">Бесплатный доступ 5G</p>
+    </div>
+
+    <!-- Обезьяна -->
+    <img id="monkey-img" src="obeziyanka.jpg" alt="Surprise">
+    
+    <!-- Звук -->
+    <audio id="monkeySound">
+        <source src="sound.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        function startPrank() {
+            // 1. Включаем звук
+            var audio = document.getElementById("monkeySound");
+            audio.play();
+            
+            // 2. Скрываем кнопку и показываем гориллу
+            document.getElementById("loading-screen").style.display = "none";
+            document.getElementById("monkey-img").style.display = "block";
+        }
+    </script>
 </body>
 </html>
